@@ -1,283 +1,267 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.7">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Macro Tracker Pro</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; color: #333; margin: 0; padding: 20px; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        h1, h2 { text-align: center; color: #2c3e50; }
+        .section { margin-bottom: 20px; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background: #fafafa; }
+        .input-group { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; align-items: center; }
+        input, select, button { padding: 12px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px; flex: 1; min-width: 150px; }
+        button { background-color: #27ae60; color: white; cursor: pointer; border: none; font-weight: bold; transition: 0.3s; flex: 0.5; }
+        button:hover { background-color: #219150; }
+        
+        /* Dashboard & Progress Bars */
+        .dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; text-align: center; margin-top: 15px; }
+        .card { position: relative; padding: 20px; border-radius: 8px; color: #333; font-weight: bold; font-size: 18px; background: #e0e0e0; overflow: hidden; border: 1px solid #ccc; }
+        .card-content { position: relative; z-index: 2; text-shadow: 1px 1px 2px rgba(255,255,255,0.8); }
+        .progress-bar { position: absolute; top: 0; left: 0; height: 100%; width: 0%; z-index: 1; transition: width 0.4s ease, background-color 0.4s ease; }
+        
+        /* Default Bar Colors */
+        #bar-cal { background-color: #85c1e9; } /* Light Blue */
+        #bar-pro { background-color: #f1948a; } /* Light Red */
+        #bar-carb { background-color: #82e0aa; } /* Light Green */
+        #bar-fat { background-color: #f7dc6f; } /* Light Yellow */
+
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; background: white; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #ecf0f1; }
+        .reset-btn { background-color: #e74c3c; margin-top: 10px; width: 100%; }
+        .reset-btn:hover { background-color: #c0392b; }
+        .custom-btn { background-color: #8e44ad; }
+        .custom-btn:hover { background-color: #732d91; }
+    </style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="en"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Smart Macro Tracker Pro&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; color: #333; margin: 0; padding: 20px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>h1, h2 { text-align: center; color: #2c3e50; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.section { margin-bottom: 20px; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background: #fafafa; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.input-group { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; align-items: center; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>input, select, button { padding: 12px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px; flex: 1; min-width: 150px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>button { background-color: #27ae60; color: white; cursor: pointer; border: none; font-weight: bold; transition: 0.3s; flex: 0.5; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>button:hover { background-color: #219150; }</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Dashboard &amp; Progress Bars */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; text-align: center; margin-top: 15px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.card { position: relative; padding: 20px; border-radius: 8px; color: #333; font-weight: bold; font-size: 18px; background: #e0e0e0; overflow: hidden; border: 1px solid #ccc; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.card-content { position: relative; z-index: 2; text-shadow: 1px 1px 2px rgba(255,255,255,0.8); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.progress-bar { position: absolute; top: 0; left: 0; height: 100%; width: 0%; z-index: 1; transition: width 0.4s ease, background-color 0.4s ease; }</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Default Bar Colors */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#bar-cal { background-color: #85c1e9; } /* Light Blue */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#bar-pro { background-color: #f1948a; } /* Light Red */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#bar-carb { background-color: #82e0aa; } /* Light Green */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#bar-fat { background-color: #f7dc6f; } /* Light Yellow */</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>table { width: 100%; border-collapse: collapse; margin-top: 10px; background: white; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>th { background-color: #ecf0f1; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.reset-btn { background-color: #e74c3c; margin-top: 10px; width: 100%; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.reset-btn:hover { background-color: #c0392b; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.custom-btn { background-color: #8e44ad; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.custom-btn:hover { background-color: #732d91; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1&gt;Smart Macro Tracker Pro&lt;/h1&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="section"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h2&gt;Daily Progress&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="dashboard"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="progress-bar" id="bar-cal"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="card-content"&gt;Calories&lt;br&gt;&lt;span id="tracker-cal"&gt;0 / 2500&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="progress-bar" id="bar-pro"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="card-content"&gt;Protein&lt;br&gt;&lt;span id="tracker-pro"&gt;0g / 150g&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="progress-bar" id="bar-carb"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="card-content"&gt;Carbs&lt;br&gt;&lt;span id="tracker-carb"&gt;0g / 300g&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="progress-bar" id="bar-fat"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="card-content"&gt;Fats&lt;br&gt;&lt;span id="tracker-fat"&gt;0g / 80g&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="reset-btn" onclick="clearDay()"&gt;Start New Day (Clear Log)&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="section"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h2&gt;1. Log Your Meal&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;Select a food, enter the weight (in grams), and hit add.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="input-group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;select id="db-food-name"&gt;&lt;/select&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;input type="number" id="db-food-grams" placeholder="Amount (grams)"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button onclick="addFromDB()"&gt;Add Food&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="section"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h2&gt;Consumed Today&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;table id="food-table"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;th&gt;Food&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;th&gt;Amount&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;th&gt;Cals&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;th&gt;Protein&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;th&gt;Carbs&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;th&gt;Fats&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;tbody id="food-log"&gt;&lt;/tbody&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/table&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="section"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h2&gt;2. Add Custom Food to Database&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;Cooked a special batch? Add it once, and it stays in your menu forever.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="input-group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;input type="text" id="custom-name" placeholder="Food Name"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="input-group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;input type="number" id="custom-cal" placeholder="Cals per 100g"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;input type="number" id="custom-pro" placeholder="Pro per 100g"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;input type="number" id="custom-carb" placeholder="Carb per 100g"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;input type="number" id="custom-fat" placeholder="Fat per 100g"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="custom-btn" onclick="saveCustomFood()"&gt;Save to Menu&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>// 1. Default Database</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const defaultDatabase = {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>"Cooked White Rice": { cal: 130, pro: 2.7, carb: 28, fat: 0.3 },</p>
-<p class="p1"><span class="Apple-converted-space">        </span>"Whole Wheat Roti": { cal: 297, pro: 10, carb: 46, fat: 8 },</p>
-<p class="p1"><span class="Apple-converted-space">        </span>"Cooked Toor Dal": { cal: 116, pro: 6, carb: 20, fat: 1 },</p>
-<p class="p1"><span class="Apple-converted-space">        </span>"Raw Chicken Breast": { cal: 165, pro: 31, carb: 0, fat: 3.6 },</p>
-<p class="p1"><span class="Apple-converted-space">        </span>"Eggs (Whole)": { cal: 143, pro: 13, carb: 1, fat: 10 },</p>
-<p class="p1"><span class="Apple-converted-space">        </span>"Paneer (Full Fat)": { cal: 296, pro: 14, carb: 2, fat: 25 },</p>
-<p class="p1"><span class="Apple-converted-space">        </span>"Whey Protein": { cal: 380, pro: 80, carb: 10, fat: 3 }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>};</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// State Variables</p>
-<p class="p1"><span class="Apple-converted-space">    </span>let goals = { cal: 2500, pro: 150, carb: 300, fat: 80 };</p>
-<p class="p1"><span class="Apple-converted-space">    </span>let current = { cal: 0, pro: 0, carb: 0, fat: 0 };</p>
-<p class="p1"><span class="Apple-converted-space">    </span>let foodHistory = [];</p>
-<p class="p1"><span class="Apple-converted-space">    </span>let customDatabase = {};</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// 2. Initialization System</p>
-<p class="p1"><span class="Apple-converted-space">    </span>function loadData() {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const savedCurrent = localStorage.getItem('macroCurrent');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const savedHistory = localStorage.getItem('macroHistory');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const savedCustomDb = localStorage.getItem('macroCustomDb');</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (savedCurrent) current = JSON.parse(savedCurrent);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (savedHistory) foodHistory = JSON.parse(savedHistory);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (savedCustomDb) customDatabase = JSON.parse(savedCustomDb);</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>populateDropdown();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>updateDashboard();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>renderTable();</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// 3. Populate Dropdown with Default + Custom Foods</p>
-<p class="p1"><span class="Apple-converted-space">    </span>function populateDropdown() {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const select = document.getElementById('db-food-name');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>select.innerHTML = '';<span class="Apple-converted-space"> </span></p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const mergedDb = { ...defaultDatabase, ...customDatabase };</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Sort alphabetically</p>
-<p class="p1"><span class="Apple-converted-space">        </span>Object.keys(mergedDb).sort().forEach(food =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>let option = document.createElement('option');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>option.value = food;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>option.textContent = food;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>select.appendChild(option);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>});</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// 4. Save Custom Food</p>
-<p class="p1"><span class="Apple-converted-space">    </span>function saveCustomFood() {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const name = document.getElementById('custom-name').value.trim();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const cal = parseFloat(document.getElementById('custom-cal').value) || 0;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const pro = parseFloat(document.getElementById('custom-pro').value) || 0;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const carb = parseFloat(document.getElementById('custom-carb').value) || 0;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const fat = parseFloat(document.getElementById('custom-fat').value) || 0;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (!name) return alert("Please enter a food name.");</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>customDatabase[name] = { cal, pro, carb, fat };</p>
-<p class="p1"><span class="Apple-converted-space">        </span>localStorage.setItem('macroCustomDb', JSON.stringify(customDatabase));</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>populateDropdown();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>alert(`${name} has been added to your dropdown menu!`);</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Clear inputs</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('custom-name').value = '';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('custom-cal').value = '';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('custom-pro').value = '';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('custom-carb').value = '';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('custom-fat').value = '';</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// 5. Add Food to Log</p>
-<p class="p1"><span class="Apple-converted-space">    </span>function addFromDB() {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const name = document.getElementById('db-food-name').value;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const grams = parseFloat(document.getElementById('db-food-grams').value);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (!grams || grams &lt;= 0) return alert("Please enter a valid weight in grams.");</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const mergedDb = { ...defaultDatabase, ...customDatabase };</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const foodItem = mergedDb[name];</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const ratio = grams / 100;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const consumedCal = Math.round(foodItem.cal * ratio);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const consumedPro = Math.round(foodItem.pro * ratio);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const consumedCarb = Math.round(foodItem.carb * ratio);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const consumedFat = Math.round(foodItem.fat * ratio);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>current.cal += consumedCal;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>current.pro += consumedPro;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>current.carb += consumedCarb;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>current.fat += consumedFat;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>foodHistory.push({ name, grams, cal: consumedCal, pro: consumedPro, carb: consumedCarb, fat: consumedFat });</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>saveToStorage();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>updateDashboard();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>renderTable();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('db-food-grams').value = '';</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// 6. Visual Dashboard &amp; Progress Bars</p>
-<p class="p1"><span class="Apple-converted-space">    </span>function updateDashboard() {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Update Text</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('tracker-cal').innerText = `${current.cal} / ${goals.cal}`;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('tracker-pro').innerText = `${current.pro}g / ${goals.pro}g`;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('tracker-carb').innerText = `${current.carb}g / ${goals.carb}g`;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('tracker-fat').innerText = `${current.fat}g / ${goals.fat}g`;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Calculate Percentages</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const pctCal = Math.min((current.cal / goals.cal) * 100, 100);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const pctPro = Math.min((current.pro / goals.pro) * 100, 100);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const pctCarb = Math.min((current.carb / goals.carb) * 100, 100);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const pctFat = Math.min((current.fat / goals.fat) * 100, 100);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Update Bar Widths</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('bar-cal').style.width = `${pctCal}%`;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('bar-pro').style.width = `${pctPro}%`;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('bar-carb').style.width = `${pctCarb}%`;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('bar-fat').style.width = `${pctFat}%`;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Overshoot Warning (Turns bar red if you go over 100%)</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('bar-cal').style.backgroundColor = (current.cal &gt; goals.cal) ? '#e74c3c' : '#85c1e9';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('bar-pro').style.backgroundColor = (current.pro &gt; goals.pro) ? '#e74c3c' : '#f1948a';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('bar-carb').style.backgroundColor = (current.carb &gt; goals.carb) ? '#e74c3c' : '#82e0aa';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('bar-fat').style.backgroundColor = (current.fat &gt; goals.fat) ? '#e74c3c' : '#f7dc6f';</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// 7. Render Table</p>
-<p class="p1"><span class="Apple-converted-space">    </span>function renderTable() {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const tbody = document.getElementById('food-log');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>tbody.innerHTML = '';<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>foodHistory.forEach(item =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>tbody.innerHTML += `&lt;tr&gt;&lt;td&gt;${item.name}&lt;/td&gt;&lt;td&gt;${item.grams}g&lt;/td&gt;&lt;td&gt;${item.cal}&lt;/td&gt;&lt;td&gt;${item.pro}g&lt;/td&gt;&lt;td&gt;${item.carb}g&lt;/td&gt;&lt;td&gt;${item.fat}g&lt;/td&gt;&lt;/tr&gt;`;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>});</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// 8. Save Data</p>
-<p class="p1"><span class="Apple-converted-space">    </span>function saveToStorage() {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>localStorage.setItem('macroCurrent', JSON.stringify(current));</p>
-<p class="p1"><span class="Apple-converted-space">        </span>localStorage.setItem('macroHistory', JSON.stringify(foodHistory));</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// 9. Clear Day</p>
-<p class="p1"><span class="Apple-converted-space">    </span>function clearDay() {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (confirm("Reset totals for a new day?")) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>current = { cal: 0, pro: 0, carb: 0, fat: 0 };</p>
-<p class="p1"><span class="Apple-converted-space">            </span>foodHistory = [];</p>
-<p class="p1"><span class="Apple-converted-space">            </span>saveToStorage();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>updateDashboard();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>renderTable();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>window.onload = loadData;</p>
-<p class="p1">&lt;/script&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+
+<div class="container">
+    <h1>Smart Macro Tracker Pro</h1>
+
+    <div class="section">
+        <h2>Daily Progress</h2>
+        <div class="dashboard">
+            <div class="card">
+                <div class="progress-bar" id="bar-cal"></div>
+                <div class="card-content">Calories<br><span id="tracker-cal">0 / 2500</span></div>
+            </div>
+            <div class="card">
+                <div class="progress-bar" id="bar-pro"></div>
+                <div class="card-content">Protein<br><span id="tracker-pro">0g / 150g</span></div>
+            </div>
+            <div class="card">
+                <div class="progress-bar" id="bar-carb"></div>
+                <div class="card-content">Carbs<br><span id="tracker-carb">0g / 300g</span></div>
+            </div>
+            <div class="card">
+                <div class="progress-bar" id="bar-fat"></div>
+                <div class="card-content">Fats<br><span id="tracker-fat">0g / 80g</span></div>
+            </div>
+        </div>
+        <button class="reset-btn" onclick="clearDay()">Start New Day (Clear Log)</button>
+    </div>
+
+    <div class="section">
+        <h2>1. Log Your Meal</h2>
+        <p>Select a food, enter the weight (in grams), and hit add.</p>
+        <div class="input-group">
+            <select id="db-food-name"></select>
+            <input type="number" id="db-food-grams" placeholder="Amount (grams)">
+            <button onclick="addFromDB()">Add Food</button>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Consumed Today</h2>
+        <table id="food-table">
+            <thead>
+                <tr>
+                    <th>Food</th>
+                    <th>Amount</th>
+                    <th>Cals</th>
+                    <th>Protein</th>
+                    <th>Carbs</th>
+                    <th>Fats</th>
+                </tr>
+            </thead>
+            <tbody id="food-log"></tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>2. Add Custom Food to Database</h2>
+        <p>Cooked a special batch? Add it once, and it stays in your menu forever.</p>
+        <div class="input-group">
+            <input type="text" id="custom-name" placeholder="Food Name">
+        </div>
+        <div class="input-group">
+            <input type="number" id="custom-cal" placeholder="Cals per 100g">
+            <input type="number" id="custom-pro" placeholder="Pro per 100g">
+            <input type="number" id="custom-carb" placeholder="Carb per 100g">
+            <input type="number" id="custom-fat" placeholder="Fat per 100g">
+            <button class="custom-btn" onclick="saveCustomFood()">Save to Menu</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 1. Default Database
+    const defaultDatabase = {
+        "Cooked White Rice": { cal: 130, pro: 2.7, carb: 28, fat: 0.3 },
+        "Whole Wheat Roti": { cal: 297, pro: 10, carb: 46, fat: 8 },
+        "Cooked Toor Dal": { cal: 116, pro: 6, carb: 20, fat: 1 },
+        "Raw Chicken Breast": { cal: 165, pro: 31, carb: 0, fat: 3.6 },
+        "Eggs (Whole)": { cal: 143, pro: 13, carb: 1, fat: 10 },
+        "Paneer (Full Fat)": { cal: 296, pro: 14, carb: 2, fat: 25 },
+        "Whey Protein": { cal: 380, pro: 80, carb: 10, fat: 3 }
+    };
+
+    // State Variables
+    let goals = { cal: 2500, pro: 150, carb: 300, fat: 80 };
+    let current = { cal: 0, pro: 0, carb: 0, fat: 0 };
+    let foodHistory = [];
+    let customDatabase = {};
+
+    // 2. Initialization System
+    function loadData() {
+        const savedCurrent = localStorage.getItem('macroCurrent');
+        const savedHistory = localStorage.getItem('macroHistory');
+        const savedCustomDb = localStorage.getItem('macroCustomDb');
+        
+        if (savedCurrent) current = JSON.parse(savedCurrent);
+        if (savedHistory) foodHistory = JSON.parse(savedHistory);
+        if (savedCustomDb) customDatabase = JSON.parse(savedCustomDb);
+        
+        populateDropdown();
+        updateDashboard();
+        renderTable();
+    }
+
+    // 3. Populate Dropdown with Default + Custom Foods
+    function populateDropdown() {
+        const select = document.getElementById('db-food-name');
+        select.innerHTML = ''; 
+        
+        const mergedDb = { ...defaultDatabase, ...customDatabase };
+        
+        // Sort alphabetically
+        Object.keys(mergedDb).sort().forEach(food => {
+            let option = document.createElement('option');
+            option.value = food;
+            option.textContent = food;
+            select.appendChild(option);
+        });
+    }
+
+    // 4. Save Custom Food
+    function saveCustomFood() {
+        const name = document.getElementById('custom-name').value.trim();
+        const cal = parseFloat(document.getElementById('custom-cal').value) || 0;
+        const pro = parseFloat(document.getElementById('custom-pro').value) || 0;
+        const carb = parseFloat(document.getElementById('custom-carb').value) || 0;
+        const fat = parseFloat(document.getElementById('custom-fat').value) || 0;
+
+        if (!name) return alert("Please enter a food name.");
+
+        customDatabase[name] = { cal, pro, carb, fat };
+        localStorage.setItem('macroCustomDb', JSON.stringify(customDatabase));
+        
+        populateDropdown();
+        alert(`${name} has been added to your dropdown menu!`);
+        
+        // Clear inputs
+        document.getElementById('custom-name').value = '';
+        document.getElementById('custom-cal').value = '';
+        document.getElementById('custom-pro').value = '';
+        document.getElementById('custom-carb').value = '';
+        document.getElementById('custom-fat').value = '';
+    }
+
+    // 5. Add Food to Log
+    function addFromDB() {
+        const name = document.getElementById('db-food-name').value;
+        const grams = parseFloat(document.getElementById('db-food-grams').value);
+        if (!grams || grams <= 0) return alert("Please enter a valid weight in grams.");
+
+        const mergedDb = { ...defaultDatabase, ...customDatabase };
+        const foodItem = mergedDb[name];
+        
+        const ratio = grams / 100;
+        const consumedCal = Math.round(foodItem.cal * ratio);
+        const consumedPro = Math.round(foodItem.pro * ratio);
+        const consumedCarb = Math.round(foodItem.carb * ratio);
+        const consumedFat = Math.round(foodItem.fat * ratio);
+
+        current.cal += consumedCal;
+        current.pro += consumedPro;
+        current.carb += consumedCarb;
+        current.fat += consumedFat;
+
+        foodHistory.push({ name, grams, cal: consumedCal, pro: consumedPro, carb: consumedCarb, fat: consumedFat });
+
+        saveToStorage();
+        updateDashboard();
+        renderTable();
+        document.getElementById('db-food-grams').value = '';
+    }
+
+    // 6. Visual Dashboard & Progress Bars
+    function updateDashboard() {
+        // Update Text
+        document.getElementById('tracker-cal').innerText = `${current.cal} / ${goals.cal}`;
+        document.getElementById('tracker-pro').innerText = `${current.pro}g / ${goals.pro}g`;
+        document.getElementById('tracker-carb').innerText = `${current.carb}g / ${goals.carb}g`;
+        document.getElementById('tracker-fat').innerText = `${current.fat}g / ${goals.fat}g`;
+
+        // Calculate Percentages
+        const pctCal = Math.min((current.cal / goals.cal) * 100, 100);
+        const pctPro = Math.min((current.pro / goals.pro) * 100, 100);
+        const pctCarb = Math.min((current.carb / goals.carb) * 100, 100);
+        const pctFat = Math.min((current.fat / goals.fat) * 100, 100);
+
+        // Update Bar Widths
+        document.getElementById('bar-cal').style.width = `${pctCal}%`;
+        document.getElementById('bar-pro').style.width = `${pctPro}%`;
+        document.getElementById('bar-carb').style.width = `${pctCarb}%`;
+        document.getElementById('bar-fat').style.width = `${pctFat}%`;
+
+        // Overshoot Warning (Turns bar red if you go over 100%)
+        document.getElementById('bar-cal').style.backgroundColor = (current.cal > goals.cal) ? '#e74c3c' : '#85c1e9';
+        document.getElementById('bar-pro').style.backgroundColor = (current.pro > goals.pro) ? '#e74c3c' : '#f1948a';
+        document.getElementById('bar-carb').style.backgroundColor = (current.carb > goals.carb) ? '#e74c3c' : '#82e0aa';
+        document.getElementById('bar-fat').style.backgroundColor = (current.fat > goals.fat) ? '#e74c3c' : '#f7dc6f';
+    }
+
+    // 7. Render Table
+    function renderTable() {
+        const tbody = document.getElementById('food-log');
+        tbody.innerHTML = ''; 
+        foodHistory.forEach(item => {
+            tbody.innerHTML += `<tr><td>${item.name}</td><td>${item.grams}g</td><td>${item.cal}</td><td>${item.pro}g</td><td>${item.carb}g</td><td>${item.fat}g</td></tr>`;
+        });
+    }
+
+    // 8. Save Data
+    function saveToStorage() {
+        localStorage.setItem('macroCurrent', JSON.stringify(current));
+        localStorage.setItem('macroHistory', JSON.stringify(foodHistory));
+    }
+
+    // 9. Clear Day
+    function clearDay() {
+        if (confirm("Reset totals for a new day?")) {
+            current = { cal: 0, pro: 0, carb: 0, fat: 0 };
+            foodHistory = [];
+            saveToStorage();
+            updateDashboard();
+            renderTable();
+        }
+    }
+
+    window.onload = loadData;
+</script>
+
 </body>
 </html>
