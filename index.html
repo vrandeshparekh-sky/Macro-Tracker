@@ -37,6 +37,8 @@
         .direct-btn:hover { background-color: #d68910; }
         .delete-btn { background-color: #e74c3c; flex: 0.2; min-width: 50px; padding: 12px 0; }
         .delete-btn:hover { background-color: #c0392b; }
+        .settings-btn { background-color: #34495e; }
+        .settings-btn:hover { background-color: #2c3e50; }
     </style>
 </head>
 <body>
@@ -44,34 +46,31 @@
 <div class="container">
     <h1>Smart Macro Tracker Pro</h1>
 
-    <!-- Dashboard Section -->
     <div class="section">
         <h2>Daily Progress</h2>
         <div class="dashboard">
             <div class="card">
                 <div class="progress-bar" id="bar-cal"></div>
-                <div class="card-content">Calories<br><span id="tracker-cal">0 / 2500</span></div>
+                <div class="card-content">Calories<br><span id="tracker-cal">0 / 0</span></div>
             </div>
             <div class="card">
                 <div class="progress-bar" id="bar-pro"></div>
-                <div class="card-content">Protein<br><span id="tracker-pro">0g / 150g</span></div>
+                <div class="card-content">Protein<br><span id="tracker-pro">0g / 0g</span></div>
             </div>
             <div class="card">
                 <div class="progress-bar" id="bar-carb"></div>
-                <div class="card-content">Carbs<br><span id="tracker-carb">0g / 300g</span></div>
+                <div class="card-content">Carbs<br><span id="tracker-carb">0g / 0g</span></div>
             </div>
             <div class="card">
                 <div class="progress-bar" id="bar-fat"></div>
-                <div class="card-content">Fats<br><span id="tracker-fat">0g / 80g</span></div>
+                <div class="card-content">Fats<br><span id="tracker-fat">0g / 0g</span></div>
             </div>
         </div>
         <button class="reset-btn" onclick="clearDay()">Start New Day (Clear Log)</button>
     </div>
 
-    <!-- Quick Log Section -->
     <div class="section">
         <h2>1. Log From Menu</h2>
-        <p>Select a saved food, enter the weight (in grams), and hit add.</p>
         <div class="input-group">
             <select id="db-food-name"></select>
             <input type="number" id="db-food-grams" placeholder="Amount (grams)">
@@ -80,12 +79,10 @@
         </div>
     </div>
 
-    <!-- Direct Quick Add Section -->
     <div class="section">
         <h2>2. Direct Add (One-Time Meal)</h2>
-        <p>Ate something unique? Just punch in the exact macros directly.</p>
         <div class="input-group">
-            <input type="text" id="direct-name" placeholder="Meal Name (e.g., Restaurant Burger)">
+            <input type="text" id="direct-name" placeholder="Meal Name">
         </div>
         <div class="input-group">
             <input type="number" id="direct-cal" placeholder="Total Cals">
@@ -96,10 +93,8 @@
         </div>
     </div>
 
-    <!-- Add Custom Food Section -->
     <div class="section">
         <h2>3. Add Custom Food to Menu</h2>
-        <p>Save a recipe's 100g values so it stays in your menu forever.</p>
         <div class="input-group">
             <input type="text" id="custom-name" placeholder="Food Name">
         </div>
@@ -112,7 +107,6 @@
         </div>
     </div>
 
-    <!-- Logged Foods Table -->
     <div class="section">
         <h2>Consumed Today</h2>
         <table id="food-table">
@@ -121,18 +115,29 @@
                     <th>Food</th>
                     <th>Amount</th>
                     <th>Cals</th>
-                    <th>Protein</th>
-                    <th>Carbs</th>
-                    <th>Fats</th>
+                    <th>Pro</th>
+                    <th>Carb</th>
+                    <th>Fat</th>
                 </tr>
             </thead>
             <tbody id="food-log"></tbody>
         </table>
     </div>
+
+    <div class="section">
+        <h2>⚙️ Settings: Your Daily Goals</h2>
+        <p>Set your custom targets here. The dashboard will automatically update.</p>
+        <div class="input-group">
+            <input type="number" id="goal-cal" placeholder="Calorie Goal">
+            <input type="number" id="goal-pro" placeholder="Protein Goal">
+            <input type="number" id="goal-carb" placeholder="Carb Goal">
+            <input type="number" id="goal-fat" placeholder="Fat Goal">
+            <button class="settings-btn" onclick="saveGoals()">Save Goals</button>
+        </div>
+    </div>
 </div>
 
 <script>
-    // 1. Default Database
     const defaultDatabase = {
         "Cooked White Rice": { cal: 130, pro: 2.7, carb: 28, fat: 0.3 },
         "Whole Wheat Roti": { cal: 297, pro: 10, carb: 46, fat: 8 },
@@ -143,35 +148,57 @@
         "Whey Protein": { cal: 380, pro: 80, carb: 10, fat: 3 }
     };
 
-    // State Variables
-    let goals = { cal: 2500, pro: 150, carb: 300, fat: 80 };
+    let goals = { cal: 2500, pro: 150, carb: 300, fat: 80 }; // Fallback defaults
     let current = { cal: 0, pro: 0, carb: 0, fat: 0 };
     let foodHistory = [];
     let customDatabase = {};
 
-    // 2. Initialization System
     function loadData() {
         const savedCurrent = localStorage.getItem('macroCurrent');
         const savedHistory = localStorage.getItem('macroHistory');
         const savedCustomDb = localStorage.getItem('macroCustomDb');
+        const savedGoals = localStorage.getItem('macroGoals');
         
         if (savedCurrent) current = JSON.parse(savedCurrent);
         if (savedHistory) foodHistory = JSON.parse(savedHistory);
         if (savedCustomDb) customDatabase = JSON.parse(savedCustomDb);
+        if (savedGoals) {
+            goals = JSON.parse(savedGoals);
+            // Pre-fill the settings inputs with saved goals
+            document.getElementById('goal-cal').value = goals.cal;
+            document.getElementById('goal-pro').value = goals.pro;
+            document.getElementById('goal-carb').value = goals.carb;
+            document.getElementById('goal-fat').value = goals.fat;
+        } else {
+            // Fill with default if no saved goals exist
+            document.getElementById('goal-cal').value = goals.cal;
+            document.getElementById('goal-pro').value = goals.pro;
+            document.getElementById('goal-carb').value = goals.carb;
+            document.getElementById('goal-fat').value = goals.fat;
+        }
         
         populateDropdown();
         updateDashboard();
         renderTable();
     }
 
-    // 3. Populate Dropdown with Default + Custom Foods
+    function saveGoals() {
+        const newCal = parseFloat(document.getElementById('goal-cal').value) || 2500;
+        const newPro = parseFloat(document.getElementById('goal-pro').value) || 150;
+        const newCarb = parseFloat(document.getElementById('goal-carb').value) || 300;
+        const newFat = parseFloat(document.getElementById('goal-fat').value) || 80;
+
+        goals = { cal: newCal, pro: newPro, carb: newCarb, fat: newFat };
+        localStorage.setItem('macroGoals', JSON.stringify(goals));
+        
+        updateDashboard();
+        alert("Your daily goals have been successfully saved!");
+    }
+
     function populateDropdown() {
         const select = document.getElementById('db-food-name');
         select.innerHTML = ''; 
-        
         const mergedDb = { ...defaultDatabase, ...customDatabase };
-        
-        // Sort alphabetically
         Object.keys(mergedDb).sort().forEach(food => {
             let option = document.createElement('option');
             option.value = food;
@@ -180,7 +207,6 @@
         });
     }
 
-    // 4. Delete Custom Food
     function deleteCustomFood() {
         const name = document.getElementById('db-food-name').value;
         if (defaultDatabase[name]) {
@@ -188,16 +214,15 @@
             return;
         }
         if (customDatabase[name]) {
-            if (confirm(`Are you sure you want to permanently delete '${name}' from your custom menu?`)) {
+            if (confirm(`Delete '${name}' from your custom menu?`)) {
                 delete customDatabase[name];
                 localStorage.setItem('macroCustomDb', JSON.stringify(customDatabase));
                 populateDropdown();
-                alert(`'${name}' has been deleted.`);
+                alert(`'${name}' deleted.`);
             }
         }
     }
 
-    // 5. Save Custom Food
     function saveCustomFood() {
         const name = document.getElementById('custom-name').value.trim();
         const cal = parseFloat(document.getElementById('custom-cal').value) || 0;
@@ -206,14 +231,11 @@
         const fat = parseFloat(document.getElementById('custom-fat').value) || 0;
 
         if (!name) return alert("Please enter a food name.");
-
         customDatabase[name] = { cal, pro, carb, fat };
         localStorage.setItem('macroCustomDb', JSON.stringify(customDatabase));
-        
         populateDropdown();
-        alert(`${name} has been added to your dropdown menu!`);
+        alert(`${name} added to menu!`);
         
-        // Clear inputs
         document.getElementById('custom-name').value = '';
         document.getElementById('custom-cal').value = '';
         document.getElementById('custom-pro').value = '';
@@ -221,16 +243,15 @@
         document.getElementById('custom-fat').value = '';
     }
 
-    // 6. Add Food to Log from Menu
     function addFromDB() {
         const name = document.getElementById('db-food-name').value;
         const grams = parseFloat(document.getElementById('db-food-grams').value);
-        if (!grams || grams <= 0) return alert("Please enter a valid weight in grams.");
+        if (!grams || grams <= 0) return alert("Please enter a valid weight.");
 
         const mergedDb = { ...defaultDatabase, ...customDatabase };
         const foodItem = mergedDb[name];
-        
         const ratio = grams / 100;
+        
         const consumedCal = Math.round(foodItem.cal * ratio);
         const consumedPro = Math.round(foodItem.pro * ratio);
         const consumedCarb = Math.round(foodItem.carb * ratio);
@@ -242,14 +263,12 @@
         current.fat += consumedFat;
 
         foodHistory.push({ name, grams: grams + "g", cal: consumedCal, pro: consumedPro, carb: consumedCarb, fat: consumedFat });
-
         saveToStorage();
         updateDashboard();
         renderTable();
         document.getElementById('db-food-grams').value = '';
     }
 
-    // 7. Add Food Directly (One-Time)
     function addDirectly() {
         const name = document.getElementById('direct-name').value.trim() || "Quick Entry";
         const cal = parseFloat(document.getElementById('direct-cal').value) || 0;
@@ -257,9 +276,7 @@
         const carb = parseFloat(document.getElementById('direct-carb').value) || 0;
         const fat = parseFloat(document.getElementById('direct-fat').value) || 0;
 
-        if (cal === 0 && pro === 0 && carb === 0 && fat === 0) {
-            return alert("Please enter at least one macro value to log.");
-        }
+        if (cal === 0 && pro === 0 && carb === 0 && fat === 0) return alert("Enter at least one value.");
 
         current.cal += cal;
         current.pro += pro;
@@ -267,12 +284,10 @@
         current.fat += fat;
 
         foodHistory.push({ name, grams: "1 Serving", cal: cal, pro: pro, carb: carb, fat: fat });
-
         saveToStorage();
         updateDashboard();
         renderTable();
         
-        // Clear inputs
         document.getElementById('direct-name').value = '';
         document.getElementById('direct-cal').value = '';
         document.getElementById('direct-pro').value = '';
@@ -280,7 +295,6 @@
         document.getElementById('direct-fat').value = '';
     }
 
-    // 8. Visual Dashboard & Progress Bars
     function updateDashboard() {
         document.getElementById('tracker-cal').innerText = `${current.cal} / ${goals.cal}`;
         document.getElementById('tracker-pro').innerText = `${current.pro}g / ${goals.pro}g`;
@@ -303,7 +317,6 @@
         document.getElementById('bar-fat').style.backgroundColor = (current.fat > goals.fat) ? '#e74c3c' : '#f7dc6f';
     }
 
-    // 9. Render Table
     function renderTable() {
         const tbody = document.getElementById('food-log');
         tbody.innerHTML = ''; 
@@ -312,13 +325,11 @@
         });
     }
 
-    // 10. Save Data
     function saveToStorage() {
         localStorage.setItem('macroCurrent', JSON.stringify(current));
         localStorage.setItem('macroHistory', JSON.stringify(foodHistory));
     }
 
-    // 11. Clear Day
     function clearDay() {
         if (confirm("Reset totals for a new day?")) {
             current = { cal: 0, pro: 0, carb: 0, fat: 0 };
